@@ -26,3 +26,4 @@ app.get("/weather/zip/date", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Weather Microservice running on port ${PORT}`);
 });
+export default app;
