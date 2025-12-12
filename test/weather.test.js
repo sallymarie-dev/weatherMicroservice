@@ -3,6 +3,6 @@ import request from "supertest";
 import app from "../index.js";
 
 test("weather route works", async () => {
-  const res = await request(app).get("/weather/zip/date");
+  const res = await request(app).get("/weather");
   expect(res.status).toBe(200);
 });

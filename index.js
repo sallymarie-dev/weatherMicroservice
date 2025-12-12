@@ -6,8 +6,9 @@ app.get("/", (req, res) => {
   res.json({ message: "weather microservice is running!!" });
 });
 
-app.get("/weather/zip/date", (req, res) => {
+app.get("/weather", (req, res) => {
   const { zip, date } = req.query;
+  console.log(zip, date);
   //   if (!zip) {
   //     return res.status(400).json({ error: "zip is required" });
   //   }
