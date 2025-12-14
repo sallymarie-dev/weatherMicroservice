@@ -9,10 +9,11 @@ app.get("/", (req, res) => {
 const myAPIKey = process.env.myAPIKey;
 app.get("/weather", async (req, res) => {
   const { zip, date } = req.query;
-  console.log(zip, date);
+  console.log(`Fetching weather for ${zip}, ${date}`);
   const result = await fetch(
     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/71202?unitGroup=us&key=${myAPIKey}&contentType=json`
   );
+
   const data = await result.json();
   console.log(data);
   //   if (!zip) {
@@ -21,6 +22,7 @@ app.get("/weather", async (req, res) => {
   //   if (!date) {
   //     return res.status(400).json({ error: "date is required" });
   //   }
+
   const weather = {
     tempHigh: 70,
     tempLow: 52,
