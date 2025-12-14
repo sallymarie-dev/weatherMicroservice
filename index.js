@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 const app = express();
 const PORT = 3001;
@@ -5,12 +6,12 @@ const PORT = 3001;
 app.get("/", (req, res) => {
   res.json({ message: "weather microservice is running!!" });
 });
-
+const myAPIKey = process.env.myAPIKey;
 app.get("/weather", async (req, res) => {
   const { zip, date } = req.query;
   console.log(zip, date);
   const result = await fetch(
-    "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/71202?unitGroup=us&key=ARJGTLULKQ46UZ4DUARXD5SNG&contentType=json"
+    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/71202?unitGroup=us&key=${myAPIKey}&contentType=json`
   );
   const data = await result.json();
   console.log(data);
