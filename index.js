@@ -11,7 +11,7 @@ app.get("/weather", async (req, res) => {
   const { zip, date } = req.query;
   console.log(`Fetching weather for ${zip}, ${date}`);
   const result = await fetch(
-    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/71202?unitGroup=us&key=${myAPIKey}&contentType=json`
+    `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${zip}/${date}?key=${myAPIKey}&contentType=json`
   );
 
   const data = await result.json();
