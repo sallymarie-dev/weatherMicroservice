@@ -6,9 +6,14 @@ app.get("/", (req, res) => {
   res.json({ message: "weather microservice is running!!" });
 });
 
-app.get("/weather", (req, res) => {
+app.get("/weather", async (req, res) => {
   const { zip, date } = req.query;
   console.log(zip, date);
+  const result = await fetch(
+    "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/71202?unitGroup=us&key=ARJGTLULKQ46UZ4DUARXD5SNG&contentType=json"
+  );
+  const data = await result.json();
+  console.log(data);
   //   if (!zip) {
   //     return res.status(400).json({ error: "zip is required" });
   //   }
