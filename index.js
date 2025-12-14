@@ -27,7 +27,7 @@ app.get("/weather", async (req, res) => {
     conditions: "slightly sunny",
     summary: "Cool with few clouds",
   };
-  res.json(weather);
+  res.json(data);
 });
 
 app.listen(PORT, () => {
