@@ -8,6 +8,13 @@ app.get("/", (req, res) => {
 });
 const myAPIKey = process.env.myAPIKey;
 app.get("/weather", async (req, res) => {
+  const clientKey = req.headers["x-api-key"];
+  const validKey = process.env.SERVICE_KEY;
+  console.log(`Received key: ${clientKey ? "present" : "missing"}`);
+  if (!clientKey || clientKey !== validKey) {
+    return res.status(401).json({ error: "Not authorized" });
+  }
+
   const { zip, date } = req.query;
   if (!zip) return res.status(400).json({ error: "zip is required" });
   if (!date) return res.status(400).json({ error: "date is required" });
