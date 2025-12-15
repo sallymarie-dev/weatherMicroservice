@@ -16,13 +16,19 @@ app.get("/weather", async (req, res) => {
 
   const data = await result.json();
   console.log(data);
-  const dayData = data.days[0];
-  const weatherDTO = {
-    date: dayData.datetime,
-    tempHigh: dayData.tempmax,
-    tempLow: dayData.tempmin,
-    conditions: dayData.conditions,
-  };
+  const days = data.days.map((day) => {
+    return {
+      datetime: day.datetime,
+      temp: day.temp,
+    };
+  });
+  // const dayData = data.days[0];
+  // const weatherDTO = {
+  //   date: dayData.datetime,
+  //   tempHigh: dayData.tempmax,
+  //   tempLow: dayData.tempmin,
+  //   conditions: dayData.conditions,
+  // };
   //   if (!zip) {
   //     return res.status(400).json({ error: "zip is required" });
   //   }
@@ -36,7 +42,7 @@ app.get("/weather", async (req, res) => {
     conditions: "slightly sunny",
     summary: "Cool with few clouds",
   };
-  res.json(weatherDTO);
+  res.json(days);
 });
 
 app.listen(PORT, () => {
