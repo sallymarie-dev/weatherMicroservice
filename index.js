@@ -9,6 +9,8 @@ app.get("/", (req, res) => {
 const myAPIKey = process.env.myAPIKey;
 app.get("/weather", async (req, res) => {
   const { zip, date } = req.query;
+  if (!zip) return res.status(400).json({ error: "zip is required" });
+  if (!date) return res.status(400).json({ error: "date is required" });
   console.log(`Fetching weather for ${zip}, ${date}`);
   const result = await fetch(
     `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${zip}/${date}?key=${myAPIKey}&contentType=json`
@@ -16,12 +18,15 @@ app.get("/weather", async (req, res) => {
 
   const data = await result.json();
   console.log(data);
-  const days = data.days.map((day) => {
-    return {
+
+  const days = data.days.reduce((resultDays, day) => {
+    resultDays.push({
       datetime: day.datetime,
       temp: day.temp,
-    };
-  });
+    });
+    return resultDays;
+  }, []);
+
   // const dayData = data.days[0];
   // const weatherDTO = {
   //   date: dayData.datetime,
@@ -29,12 +34,6 @@ app.get("/weather", async (req, res) => {
   //   tempLow: dayData.tempmin,
   //   conditions: dayData.conditions,
   // };
-  //   if (!zip) {
-  //     return res.status(400).json({ error: "zip is required" });
-  //   }
-  //   if (!date) {
-  //     return res.status(400).json({ error: "date is required" });
-  //   }
 
   const weather = {
     tempHigh: 70,
